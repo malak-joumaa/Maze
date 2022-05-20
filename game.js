@@ -13,7 +13,19 @@ $(document).ready(function(){
     let lines = Array.from(document.getElementsByClassName("boundary"));
     let status = document.getElementById('status');
     let scoreDiv = document.getElementsByClassName("example");
-    let score = 0
+    let score = 0;
+
+    // Creating transparent div to detect if the user is cheating
+    let transparentDiv = document.createElement('div');
+    let parentDiv2 = document.getElementById('boundary1').parentNode
+    let st = document.getElementById('boundary1');
+    parentDiv2.insertBefore(transparentDiv, st);
+
+    //Adding style to the transparent div
+    transparentDiv.setAttribute('id','trans')
+    var sheet = document.createElement('style')
+    sheet.innerHTML = "#trans {height: 42px; width:42px; position:absolute; bottom:51px; left:-43px} .example{text-align:center;}";
+    document.body.appendChild(sheet);
 
     // EventListeners
     start.addEventListener('click', startGame);
@@ -21,6 +33,7 @@ $(document).ready(function(){
 
     // Functions
     function startGame(){
+        transparentDiv.addEventListener('mouseover',cheat)
         console.log("startGame")
         lines.slice(0, -1).forEach(line => {
             //Lost
@@ -36,18 +49,20 @@ $(document).ready(function(){
     
     function gameLost(){
         console.log("gameLost");
-        if(lines[0].style.backgroundColor !="red"){
+        if(status.innerText!=="You're Cheating!" && status.innerText!=="You Win!" ){
+            if(lines[0].style.backgroundColor !="red"){
             for(var i=0; i<lines.length-1; i++){
                 lines[i].style.backgroundColor = "red";
             }
-            status.innerText="You Lost!"
+            status.innerText="You Lose!"
             score-=10
             scoreDiv[0].innerText = score;
+            }
         }
     }
 
     function gameWon(){
-        if (lines[0].style.backgroundColor !="red"){
+        if (lines[0].style.backgroundColor !="red" && status.innerText!=="You're Cheating!"){
             status.innerText="You Win!"
             score+=5
             scoreDiv[0].innerText = score;
@@ -62,6 +77,11 @@ $(document).ready(function(){
             } 
         }
         status.innerText="Begin by moving your mouse over the \"S\"."
+    }
+
+    function cheat(){
+        if(lines[0].style.backgroundColor !="red" && status.innerText!="You Win!")
+            status.innerText="You're Cheating!";
     }
 });
 } 
