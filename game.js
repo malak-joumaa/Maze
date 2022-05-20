@@ -22,8 +22,15 @@ $(document).ready(function(){
     function startGame(){
         console.log("startGame")
         lines.slice(0, -1).forEach(line => {
+            //Lost
             line.addEventListener('mouseover',gameLost);
         });
+        score=0  
+        scoreDiv[0].innerText = score;
+        status.innerText="Begin by moving your mouse over the \"S\"."
+
+        //Won
+        end.addEventListener('mouseover',gameWon)
     }
     
     function gameLost(){
@@ -34,6 +41,14 @@ $(document).ready(function(){
             }
             status.innerText="You Lost!"
             score-=10
+            scoreDiv[0].innerText = score;
+        }
+    }
+
+    function gameWon(){
+        if (lines[0].style.backgroundColor !="red"){
+            status.innerText="You Win!"
+            score+=5
             scoreDiv[0].innerText = score;
         }
     }
