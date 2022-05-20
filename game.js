@@ -17,6 +17,7 @@ $(document).ready(function(){
 
     // EventListeners
     start.addEventListener('click', startGame);
+    start.addEventListener('mouseover', gameReset);
 
     // Functions
     function startGame(){
@@ -51,6 +52,16 @@ $(document).ready(function(){
             score+=5
             scoreDiv[0].innerText = score;
         }
+    }
+
+    function gameReset(){
+        console.log("Reset");
+        if (lines[0].style.backgroundColor =="red"){
+            for(var i=0; i<lines.length-1; i++){
+                lines[i].style.backgroundColor = '#eeeeee';
+            } 
+        }
+        status.innerText="Begin by moving your mouse over the \"S\"."
     }
 });
 } 
