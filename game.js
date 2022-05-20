@@ -8,10 +8,13 @@ parentDiv.insertBefore(jqueryscript, js);
 jqueryscript.onload = function() {
 $(document).ready(function(){
     // Variables
-    var start = document.getElementById('start');
-    var end = document.getElementById('end');
-    var lines = Array.from(document.getElementsByClassName("boundary"));
-    
+    let start = document.getElementById('start');
+    let end = document.getElementById('end');
+    let lines = Array.from(document.getElementsByClassName("boundary"));
+    let status = document.getElementById('status');
+    let scoreDiv = document.getElementsByClassName("example");
+    let score = 0
+
     // EventListeners
     start.addEventListener('click', startGame);
 
@@ -25,8 +28,13 @@ $(document).ready(function(){
     
     function gameLost(){
         console.log("gameLost");
-        for(var i=0; i<lines.length-1; i++){
-            lines[i].style.backgroundColor = "red";
+        if(lines[0].style.backgroundColor !="red"){
+            for(var i=0; i<lines.length-1; i++){
+                lines[i].style.backgroundColor = "red";
+            }
+            status.innerText="You Lost!"
+            score-=10
+            scoreDiv[0].innerText = score;
         }
     }
 });
