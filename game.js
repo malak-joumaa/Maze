@@ -50,9 +50,10 @@ $(document).ready(function(){
     function gameLost(){
         console.log("gameLost");
         if(status.innerText!=="You're Cheating!" && status.innerText!=="You Win!" ){
-            if(lines[0].style.backgroundColor !="red"){
-            for(var i=0; i<lines.length-1; i++){
-                lines[i].style.backgroundColor = "red";
+            if(status.innerText!=="You Lose!"){
+                for(var i=0; i<lines.length-1; i++){
+                    lines[i].classList.add("youlose");
+                    lines[i].style.backgroundColor =null;
             }
             status.innerText="You Lose!"
             score-=10
@@ -62,7 +63,7 @@ $(document).ready(function(){
     }
 
     function gameWon(){
-        if (lines[0].style.backgroundColor !="red" && status.innerText!=="You're Cheating!"){
+        if (!lines[0].classList.contains("youlose") && status.innerText!=="You're Cheating!" && status.innerText!=="You Win!"){
             status.innerText="You Win!"
             score+=5
             scoreDiv[0].innerText = score;
@@ -71,8 +72,9 @@ $(document).ready(function(){
 
     function gameReset(){
         console.log("Reset");
-        if (lines[0].style.backgroundColor =="red"){
+        if (lines[1].classList.contains("youlose")){
             for(var i=0; i<lines.length-1; i++){
+                lines[i].classList.remove("youlose")
                 lines[i].style.backgroundColor = '#eeeeee';
             } 
         }
@@ -80,7 +82,7 @@ $(document).ready(function(){
     }
 
     function cheat(){
-        if(lines[0].style.backgroundColor !="red" && status.innerText!="You Win!")
+        if(!lines[0].classList.contains("youlose") && status.innerText!="You Win!")
             status.innerText="You're Cheating!";
     }
 });
