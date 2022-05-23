@@ -110,3 +110,18 @@ neighboring elements.  Necessary to avoid giving ids to the boundary divs
 	height: 150px;
 	width: 98px;
 }
+
+/* New css */
+#timeStats{
+	text-align: center;
+}
+#stats{
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	font-weight: bold;
+}
+#stats div{
+	margin-right: 70px;
+	margin-left: 70px;
+}
